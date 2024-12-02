@@ -5,7 +5,11 @@ import RouterConfig from "./config/RouterConfig";
 import Loading from "./components/Loading";
 import Drawer from "@mui/material/Drawer";
 import { useDispatch, useSelector } from "react-redux";
-import { calculateBasket, setDrawer } from "./redux/slices/basketSlice";
+import {
+  calculateBasket,
+  setDrawer,
+  removeFromBasket,
+} from "./redux/slices/basketSlice";
 import { useEffect } from "react";
 
 function App() {
@@ -60,6 +64,10 @@ function App() {
                         color: "#fff",
                         border: "none",
                         width: "60px",
+                      }}
+                      onClick={() => {
+                        dispatch(removeFromBasket(product.id)); // Ürünün ID'sini gönder
+                        dispatch(calculateBasket()); // Toplam tutarı tekrar hesapla
                       }}
                     >
                       Sil

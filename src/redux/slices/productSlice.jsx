@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
   products: [],
   selectedProduct: {},
-  loading: false,
+  loading: false, //urunleri cekerken beklediginde loading iconu cikacak true, cekildiginde loading islemi biter loading=false olur
 };
 
 const BASE_URL = "https://fakestoreapi.com";

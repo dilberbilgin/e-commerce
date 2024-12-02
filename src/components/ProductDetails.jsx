@@ -50,6 +50,7 @@ function ProductDetails() {
       });
   };
 
+  //urun detaylarinin gosterimi
   return (
     <div
       style={{

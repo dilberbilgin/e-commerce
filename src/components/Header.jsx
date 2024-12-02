@@ -17,7 +17,7 @@ function Header() {
   const { products } = useSelector((store) => store.basket);
 
   const changeTheme = () => {
-    const root = document.getElementById("root");
+    const root = document.getElementById("root"); //once butun uygulamayi saran root componentini cek
 
     if (theme) {
       root.style.backgroundColor = "black";
@@ -26,7 +26,7 @@ function Header() {
       root.style.backgroundColor = "#fff";
       root.style.color = "black";
     }
-    setTheme(!theme);
+    setTheme(!theme); // Mevcut theme degerinin tersine(!theme) cevrilerek, bir sonraki tiklamada temanin degismesini saglar. React useState - state guncelleme fonksiyonu
   };
   return (
     <div
@@ -34,12 +34,12 @@ function Header() {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
       }}
     >
       <div className="flex-row" onClick={() => navigate("/")}>
         <img className="logo" src="./src/assets/logo.png" alt="" />
-        <p className="logo-text">ECO A.S</p>
+        <p className="logo-text"> ECO A.S</p>
       </div>
 
       <div className="flex-row">

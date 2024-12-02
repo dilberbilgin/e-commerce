@@ -1,18 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// storage'dan urunleri getir
 const getBasketFromStorage = () => {
   if (localStorage.getItem("basket")) {
     return JSON.parse(localStorage.getItem("basket"));
   }
-  return [];
+  return []; // yoksa bos bir array don
 };
 
 const initialState = {
-  products: getBasketFromStorage(),
-  drawer: false,
-  totalAmount: 0,
+  products: getBasketFromStorage(), //Sepetteki ürünlerin listesi, başlangıçta localStorage'dan alınır.Sayfa yenilendiginde state'deki degerleri kaybedecegimiz icin bunu storage'da tanim;ayarak bunun onune gecmis olucaz. Sayfa yenilendiginde  redux icindeki sepet degerleri bosalir. o yuzden storage'da sakliyoruz.
+  drawer: false, //Sepet görüntüleme bölmesinin (çekmece) açık mı kapalı mı olduğunu kontrol eden bir durum.
+  totalAmount: 0, //Sepetteki ürünlerin toplam tutarı başlangıçta 0 olarak ayarlanır.
 };
 
+//sepetteki urunleri storage'a yaz
 const writeFromBasketToStorage = (basket) => {
   localStorage.setItem("basket", JSON.stringify(basket));
 };
@@ -49,8 +51,18 @@ export const basketSlice = createSlice({
           state.totalAmount += product.price * product.count;
         });
     },
+
+    removeFromBasket: (state, action) => {
+      // Belirtilen ürünü ID'sine göre çıkar
+      const updatedProducts = state.products.filter(
+        (product) => product.id !== action.payload
+      );
+      state.products = updatedProducts;
+      writeFromBasketToStorage(updatedProducts); // Storage'ı güncelle
+    },
   },
 });
 
-export const { addToBasket, setDrawer, calculateBasket } = basketSlice.actions;
+export const { addToBasket, setDrawer, calculateBasket, removeFromBasket } =
+  basketSlice.actions;
 export default basketSlice.reducer;
